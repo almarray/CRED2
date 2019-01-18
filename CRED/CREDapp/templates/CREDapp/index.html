@@ -1,0 +1,86 @@
+<!DOCTYPE html public "-//W3C//DTD HTML 4.0//EN">
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Controleur de Réserve d'Eau de Drainage</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" HTTP-EQUIV="content-Style-Type" Content="text/css">
+    <link href="{% static 'bootstrap/css/bootstrap.css' %}" rel="stylesheet" >   
+    <link href="{% static 'bootstrap/css/styles.css' %}" rel="stylesheet" >    
+</head>
+
+<body id="page-top" bgcolor=chocolate>
+<div class="container">
+<div class="row">
+
+{% if pompes %}
+    <!-- display of the 2 head lines of CRED status -->  
+    <table class="allstatus">
+        <tbody>
+            <tr>
+                <th><h4>CRED</h4></th> 
+                <th></th>
+                <th></th>
+                <th>LOGIN</th>
+                <th>USERS</th>
+            </tr>
+              <tr>
+                <th></th> 
+                <th>état ADM</th>
+                <th>état OPE</th>
+                <th></th>
+                <th></th>             
+            </tr>
+    </table>
+    <!-- display the status of each part of CRED -->
+    {% for p in pompes %}
+    <table class="allstatus">
+        <colgroup span=5 class="columns">
+            <!--col style="background-color: #0f0" -->
+        </colgroup>
+        <tbody>          
+            <tr>
+                <td CLASS=BROWN> </td>
+                <td> </td>
+                <td><a href="/CREDapp/{{p.id}}">   {{p.code}}   </a>
+                {% if p.current_status.status == "ON" %} <td class="GREEN"> MARCHE <p> {{ p.current_status.date_etat }} </p> </td> {% endif %}
+                {% if p.current_status.status == "OFF" %} <td class="GRAY"> ARRET <p> {{ p.current_status.date_etat }} </p></td> {% endif %}
+                {% if p.current_status.status == "KO_NACK" %} <td class="ORANGE-YELLOW"> DEFAUT <p> {{ p.current_status.date_etat }} </p></td> {% endif %}
+                {% if p.current_status.status == "KO_ACK" %} <td class="ORANGE"> DEFAUT Acquitté <p> {{ p.current_status.date_etat }} </p></td> {% endif %}
+                {% if p.current_status.status == "AL_NACK" %} <td class="RED-ORANGE"> ALERTE <p> {{ p.current_status.date_etat }} </p></td> {% endif %}
+                {% if p.current_status.status == "AL_ACK" %} <td class="RED"> ALERTE Acquittée<p> {{ p.current_status.date_etat }} </p></td> {% endif %}
+                
+                {% if p.current_state.etat_ope == True %} <td> En Action </td> {% else %} <td> En Pause </td> {% endif %} 
+                 
+            </tr>
+        </tbody>
+    {% endfor %}
+    </table>
+    <hr>
+    
+    <!-- buttons to force status values for debug --> 
+     {% for p in pompes %}
+        - {{p.code}} -
+        <form method=POST>{% csrf_token %}
+            <button name={{p.id}} value="ON" type="submit"> ON </button>
+            <button name={{p.id}} value="OFF" type="submit"> OFF </button>
+            <button name={{p.id}} value="ARRET COMMANDE" type="submit"> ARRET COMMANDÉ </button>
+            <button name={{p.id}} value="OPE" type="submit">  OPE </button>
+            <button name={{p.id}} value="NOP" type="submit"> NOP </button>
+            <button name={{p.id}} value="KO_NACK" type="submit"> DEFAULT </button>
+            <button name={{p.id}} value="KO_ACK" type="submit"> DEFAULT_ACK </button>
+            <button name={{p.id}} value="AL_NACK" type="submit"> ALERT </button>
+            <button name={{p.id}} value="AL_ACK" type="submit"> ALERT_ACK </button>
+        </form>  
+    {% endfor %}
+
+{% else %}
+Contactez l'administrateur pour configurer le systeme.
+{% endif %}
+</div>
+</div>
+<script src="http://code.jquery.com/jquery.js"></script>
+<script src="/static/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'bootstrap/css/bootstrap.css' %}" rel="stylesheet">
+    <title>historique des états du dispositif "{{pompe.name}}"</title>
+</head>
+<body bgcolor=bisque>
+<div class="container">
+    <div class="row">
+        <h2> {{pompe.code}} ({{pompe.name}})</h2>
+        <a href="/CREDapp">Tableau de bord</a>
+        <h3> historique de l'etat opérationnel</h3>
+        <ul>
+            {% for l in logs %}
+                {% if l.etat_ope == True %}
+                <li>{{l.date}}  : En Action </li>
+                {% else %}
+                <li>{{l.date}}  : En Pause </li>
+                {%endif%}
+            {% endfor %}
+        </ul>
+    </div>
+    
+</div>
+</body>
+</html>

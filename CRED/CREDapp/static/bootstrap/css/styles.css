@@ -1,0 +1,32 @@
+<!DOCTYPE html public "-//W3C//DTD HTML 4.0//EN">
+p{color: blue;}
+
+table, td, td {
+    border-width: medium;
+    border-style: solid;
+    border-collapse: collapse;
+    padding: 10px 10px;
+}
+h1 {
+    color: blue;
+    text-align: center;
+}
+th { background-color: rgb(200, 200, 400);}
+.allstatus { table-layout: fixed; width: 800px;}
+td.GREEN { background-color: rgb(0, 200, 0)}
+td.GRAY { background-color: rgb(200, 200, 200)}
+td.RED { background-color: rgb(300, 0, 0)}
+td.RED-ORANGE { background-color: rgb(300, 0, 0); animation-name: red2orange; animation-duration: 1s; animation-iteration-count: infinite;}
+td.ORANGE-YELLOW { background-color: rgb(300, 170, 100); animation-name: orange2yellow; animation-duration: 1s; animation-iteration-count: infinite;}
+td.ORANGE { background-color: rgb(300, 170, 100)}
+td.BROWN { background-color: rgb(150, 100, 0)}
+
+@keyframes red2orange {
+    from {background-color: rgb(300,0,0);}
+    to {background-color: rgb(300, 170, 100);}
+}
+@keyframes orange2yellow {
+    from {background-color: rgb(300,300,0);}
+    to {background-color: rgb(300, 170, 100);}
+}
+ 
