@@ -1,2 +1,2 @@
 # CRED2
-water sump controler
+Drainage sump controller on Raspberry Pi
